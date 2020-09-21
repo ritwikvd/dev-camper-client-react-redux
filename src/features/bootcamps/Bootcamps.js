@@ -88,7 +88,7 @@ const Entry = ({ camp }) => {
 	return (
 		<div className="bootcamp">
 			<Link to={`/bootcamps/${camp.id}`}>
-				<img className="bootcamp-img" alt="Unavailable" src={`/uploads/${camp.photo}`} />
+				<img className="bootcamp-img" alt="Unavailable" src={`${process.env.REACT_APP_API}/uploads/${camp.photo}`} />
 			</Link>
 
 			<div className="bootcamp-data">

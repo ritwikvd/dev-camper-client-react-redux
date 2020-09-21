@@ -45,7 +45,10 @@ export const { updateReviews } = reviewsSlice.actions;
 
 //thunks
 export const handleRetrieval = createAsyncThunk("reviews/retrieval", async (_, { dispatch }) => {
-	const { success, error, message, data } = await performFetch(`/api/v1/reviews/user/${localStorage.getItem("ID")}`, { method: "GET" });
+	const { success, error, message, data } = await performFetch(
+		`${process.env.REACT_APP_API}/api/v1/reviews/user/${localStorage.getItem("ID")}`,
+		{ method: "GET" }
+	);
 
 	await handleLoadingUpdates([success ? "READY" : "FAILED"], dispatch, updateReviews);
 
@@ -53,7 +56,7 @@ export const handleRetrieval = createAsyncThunk("reviews/retrieval", async (_, {
 });
 
 export const editReview = createAsyncThunk("reviews/edit", async (body, { dispatch }) => {
-	const { success, error, message, data } = await performFetch(`/api/v1/reviews/${body.reviewID}`, {
+	const { success, error, message, data } = await performFetch(`${process.env.REACT_APP_API}/api/v1/reviews/${body.reviewID}`, {
 		method: "PUT",
 		body: JSON.stringify(body)
 	});

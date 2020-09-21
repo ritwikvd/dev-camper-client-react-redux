@@ -48,7 +48,9 @@ export const { updateBootcamps } = bootcampSlice.actions;
 
 //thunks
 export const handleRetrieval = createAsyncThunk("bootcamps/retrieval", async ({ zip, miles, rating } = {}, { dispatch }) => {
-	const url = `/api/v1/bootcamps?limit=5&page=1${rating ? `&averageRating[gt]=${rating}` : ""}${zip ? `&zip=${zip}&miles=${miles}` : ""}`;
+	const url = `${process.env.REACT_APP_API}/api/v1/bootcamps?limit=5&page=1${rating ? `&averageRating[gt]=${rating}` : ""}${
+		zip ? `&zip=${zip}&miles=${miles}` : ""
+	}`;
 
 	const {
 		success,

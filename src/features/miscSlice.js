@@ -51,7 +51,7 @@ export const { updateMisc } = miscSlice.actions;
 
 //thunks
 export const getBootcamp = createAsyncThunk("misc/bootcamp", async ({ id }, { dispatch }) => {
-	const { success, data, message, error } = await performFetch(`/api/v1/bootcamps/${id}`, { method: "GET" });
+	const { success, data, message, error } = await performFetch(`${process.env.REACT_APP_API}/api/v1/bootcamps/${id}`, { method: "GET" });
 
 	await handleLoadingUpdates([success ? "READY" : "FAILED"], dispatch, updateMisc);
 
@@ -59,7 +59,9 @@ export const getBootcamp = createAsyncThunk("misc/bootcamp", async ({ id }, { di
 });
 
 export const getBootcampReviews = createAsyncThunk("misc/bootcamp_reviews", async ({ id }, { dispatch }) => {
-	const { success, data, message, error } = await performFetch(`/api/v1/bootcamps/${id}/reviews`, { method: "GET" });
+	const { success, data, message, error } = await performFetch(`${process.env.REACT_APP_API}/api/v1/bootcamps/${id}/reviews`, {
+		method: "GET"
+	});
 
 	await handleLoadingUpdates([success ? "READY" : "FAILED"], dispatch, updateMisc);
 
@@ -67,7 +69,7 @@ export const getBootcampReviews = createAsyncThunk("misc/bootcamp_reviews", asyn
 });
 
 export const submitReview = createAsyncThunk("misc/submit_review", async ({ id, body }, { dispatch }) => {
-	const { success, message, error } = await performFetch(`/api/v1/bootcamps/${id}/reviews`, {
+	const { success, message, error } = await performFetch(`${process.env.REACT_APP_API}/api/v1/bootcamps/${id}/reviews`, {
 		method: "POST",
 		body: JSON.stringify(body)
 	});
@@ -78,7 +80,7 @@ export const submitReview = createAsyncThunk("misc/submit_review", async ({ id, 
 });
 
 export const updatePassword = createAsyncThunk("misc/update_password", async (body, { dispatch }) => {
-	const { success, message, error } = await performFetch("/api/v1/auth/updatepassword", {
+	const { success, message, error } = await performFetch(`${process.env.REACT_APP_API}/api/v1/auth/updatepassword`, {
 		method: "PUT",
 		body: JSON.stringify(body)
 	});
@@ -89,7 +91,7 @@ export const updatePassword = createAsyncThunk("misc/update_password", async (bo
 });
 
 export const resetPassword = createAsyncThunk("misc/reset_password", async ({ email }) => {
-	const { success, error, message, resetToken } = await performFetch("/api/v1/auth/password", {
+	const { success, error, message, resetToken } = await performFetch(`${process.env.REACT_APP_API}/api/v1/auth/password`, {
 		method: "POST",
 		body: JSON.stringify({
 			email
@@ -100,7 +102,10 @@ export const resetPassword = createAsyncThunk("misc/reset_password", async ({ em
 });
 
 export const handleReviewRetrieval = createAsyncThunk("misc/retrieve_user_reviews", async (_, { dispatch }) => {
-	const { success, error, message, data } = await performFetch(`/api/v1/reviews/user/${localStorage.getItem("ID")}`, { method: "GET" });
+	const { success, error, message, data } = await performFetch(
+		`${process.env.REACT_APP_API}/api/v1/reviews/user/${localStorage.getItem("ID")}`,
+		{ method: "GET" }
+	);
 
 	await handleLoadingUpdates([success ? "READY" : "FAILED"], dispatch, updateMisc);
 
@@ -108,7 +113,7 @@ export const handleReviewRetrieval = createAsyncThunk("misc/retrieve_user_review
 });
 
 export const editReview = createAsyncThunk("misc/edit_user_reviews", async (body, { dispatch }) => {
-	const { success, error, message } = await performFetch(`/api/v1/reviews/${body.reviewID}`, {
+	const { success, error, message } = await performFetch(`${process.env.REACT_APP_API}/api/v1/reviews/${body.reviewID}`, {
 		method: "PUT",
 		body: JSON.stringify(body)
 	});
@@ -119,7 +124,7 @@ export const editReview = createAsyncThunk("misc/edit_user_reviews", async (body
 });
 
 export const deleteReview = createAsyncThunk("misc/delete_review", async ({ id }, { dispatch, getState }) => {
-	const { success, error, message } = await performFetch(`/api/v1/reviews/${id}`, {
+	const { success, error, message } = await performFetch(`${process.env.REACT_APP_API}/api/v1/reviews/${id}`, {
 		method: "DELETE"
 	});
 

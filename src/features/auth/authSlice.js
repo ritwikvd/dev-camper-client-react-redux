@@ -44,10 +44,13 @@ export const { logoutSession, updateAuth } = authSlice.actions;
 export const handleLoginOrRegistration = createAsyncThunk("auth/update_auth_state", async (body, { dispatch }) => {
 	dispatch(updateAuth({ loading: body.role ? "REGISTERING" : "LOGGING IN" }));
 
-	const { success, token, message, error, user } = await performFetch(body.role ? "/api/v1/auth/register" : "/api/v1/auth/login", {
-		method: "POST",
-		body: JSON.stringify(body)
-	});
+	const { success, token, message, error, user } = await performFetch(
+		`${process.env.REACT_APP_API}/api/v1/auth/${body.role ? "register" : "login"}`,
+		{
+			method: "POST",
+			body: JSON.stringify(body)
+		}
+	);
 
 	const loadingArray = [success ? "READY" : "FAILED"];
 
@@ -74,7 +77,7 @@ export const handleLoginOrRegistration = createAsyncThunk("auth/update_auth_stat
 });
 
 export const handlePasswordReset = createAsyncThunk("auth/reset_pass_and_login", async ({ email, resetToken, password }, { dispatch }) => {
-	const { success, token, data, error, user } = await performFetch(`/api/v1/auth/password/${resetToken}`, {
+	const { success, token, data, error, user } = await performFetch(`${process.env.REACT_APP_API}/api/v1/auth/password/${resetToken}`, {
 		method: "PUT",
 		body: JSON.stringify({ password })
 	});
@@ -104,7 +107,7 @@ export const handlePasswordReset = createAsyncThunk("auth/reset_pass_and_login",
 export const handleLogout = createAsyncThunk("auth/logout", async payload => {
 	await new Promise(res => setTimeout(res, 500));
 
-	const { success, error } = await performFetch(`/api/v1/auth/logout`, { method: "GET" });
+	const { success, error } = await performFetch(`${process.env.REACT_APP_API}/api/v1/auth/logout`, { method: "GET" });
 
 	if (!success) console.error(error);
 
@@ -114,7 +117,7 @@ export const handleLogout = createAsyncThunk("auth/logout", async payload => {
 });
 
 export const handleAccountUpdate = createAsyncThunk("auth/update_account", async (body, { dispatch }) => {
-	const { success, error, message } = await performFetch(`/api/v1/auth/updatedetails`, {
+	const { success, error, message } = await performFetch(`${process.env.REACT_APP_API}/api/v1/auth/updatedetails`, {
 		method: "PUT",
 		body: JSON.stringify(body)
 	});

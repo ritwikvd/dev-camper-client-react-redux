@@ -87,13 +87,18 @@ const publisherSlice = createSlice({
 export const { updatePublisher } = publisherSlice.actions;
 
 export const getPublisherBootcamp = createAsyncThunk("publisher/pub_bootcamp", async (_, { dispatch }) => {
-	const { success, data, error } = await performFetch(`/api/v1/bootcamps/user/${localStorage.getItem("ID")}`, {
+	const { success, data, error } = await performFetch(`${process.env.REACT_APP_API}/api/v1/bootcamps/user/${localStorage.getItem("ID")}`, {
 		method: "GET"
 	});
 
 	await handleLoadingUpdates([success ? "READY" : error ? "FAILED" : "REDIRECTING"], dispatch, updatePublisher);
 
-	return { bootcamp: data, photoPath: data ? `/uploads/${data.photo}` : "", loading: "idle", alert: success ? "" : error || "" };
+	return {
+		bootcamp: data,
+		photoPath: data ? `${process.env.REACT_APP_API}/uploads/${data.photo}` : "",
+		loading: "idle",
+		alert: success ? "" : error || ""
+	};
 });
 
 export const uploadImage = createAsyncThunk("publisher/upload_image", async ({ file, data }, { dispatch }) => {
@@ -115,11 +120,16 @@ export const uploadImage = createAsyncThunk("publisher/upload_image", async ({ f
 
 	await handleLoadingUpdates([success ? "READY" : "FAILED"], dispatch, updatePublisher);
 
-	return { bootcamp: data, loading: "idle", alert: success ? "" : error || message, photoPath: path || "" };
+	return {
+		bootcamp: data,
+		loading: "idle",
+		alert: success ? "" : error || message,
+		photoPath: `${process.env.REACT_APP_API}/${path}` || ""
+	};
 });
 
 export const createBootcamp = createAsyncThunk("publisher/create_bootcamp", async (body, { dispatch }) => {
-	const { success, error, message, data } = await performFetch("/api/v1/bootcamps/", {
+	const { success, error, message, data } = await performFetch(`${process.env.REACT_APP_API}/api/v1/bootcamps/`, {
 		method: "POST",
 		body: JSON.stringify(body)
 	});
@@ -139,10 +149,13 @@ export const createBootcamp = createAsyncThunk("publisher/create_bootcamp", asyn
 });
 
 export const editBootcamp = createAsyncThunk("publisher/edit_bootcamp", async (body, { dispatch, getState }) => {
-	const { success, error, message, data } = await performFetch(`/api/v1/bootcamps/${getState().publisher.bootcamp.id}`, {
-		method: "PUT",
-		body: JSON.stringify(body)
-	});
+	const { success, error, message, data } = await performFetch(
+		`${process.env.REACT_APP_API}/api/v1/bootcamps/${getState().publisher.bootcamp.id}`,
+		{
+			method: "PUT",
+			body: JSON.stringify(body)
+		}
+	);
 
 	await handleLoadingUpdates([success ? "UPDATED" : "FAILED"], dispatch, updatePublisher);
 
@@ -161,7 +174,7 @@ export const editBootcamp = createAsyncThunk("publisher/edit_bootcamp", async (b
 });
 
 export const createCourse = createAsyncThunk("publisher/create_course", async (body, { dispatch, getState }) => {
-	const { success, data, error, message } = await performFetch(`/api/v1/courses`, {
+	const { success, data, error, message } = await performFetch(`${process.env.REACT_APP_API}/api/v1/courses`, {
 		method: "POST",
 		body: JSON.stringify({ ...body, ...{ id: getState().publisher.bootcamp.id } })
 	});
@@ -174,7 +187,7 @@ export const createCourse = createAsyncThunk("publisher/create_course", async (b
 });
 
 export const editCourse = createAsyncThunk("publisher/edit_course", async (body, { dispatch }) => {
-	const { success, data, error, message } = await performFetch(`/api/v1/courses/${body.courseID}`, {
+	const { success, data, error, message } = await performFetch(`${process.env.REACT_APP_API}/api/v1/courses/${body.courseID}`, {
 		method: "PUT",
 		body: JSON.stringify(body)
 	});
@@ -187,7 +200,7 @@ export const editCourse = createAsyncThunk("publisher/edit_course", async (body,
 });
 
 export const deleteCourse = createAsyncThunk("publisher/delete_course", async ({ id }, { dispatch }) => {
-	const { success, error, message } = await performFetch(`/api/v1/courses/${id}`, {
+	const { success, error, message } = await performFetch(`${process.env.REACT_APP_API}/api/v1/courses/${id}`, {
 		method: "DELETE"
 	});
 

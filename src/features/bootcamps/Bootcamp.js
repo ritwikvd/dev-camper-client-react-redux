@@ -31,7 +31,7 @@ const Bootcamp = () => {
 		<main className="main-bootcamp">
 			<section className="bootcamp-dtls">
 				<h1>{name}</h1>
-				<img alt="" src={`/uploads/${photo}`} />
+				<img alt="" src={`${process.env.REACT_APP_API}/uploads/${photo}`} />
 				<p>{description}</p>
 
 				<div>
