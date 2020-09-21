@@ -29,6 +29,7 @@ const Header = ({ menuOpen, setMenuOpen }) => {
 		if (session === "active") {
 			interval.current = setInterval(() => localStorage.getItem("TOKEN") || logout(), 2000);
 		}
+		//eslint-disable-next-line
 	}, [session]);
 
 	const getHeaderElements = () => {

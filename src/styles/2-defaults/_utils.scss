@@ -62,3 +62,22 @@
 .mb {
 	margin-bottom: 1rem;
 }
+
+.hidden {
+	visibility: hidden;
+}
+
+.place-below {
+	z-index: -1;
+}
+
+.image-container {
+	display: grid;
+	grid-template: 1fr / 1fr;
+	justify-self: start;
+
+	> * {
+		grid-row: 1 /-1;
+		grid-column: 1 /-1;
+	}
+}

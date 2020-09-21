@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getPublisherBootcamp, updatePublisher } from "./publisherSlice";
 import useAlert from "../../common/utils/useAlert";
 import useLoading from "../../common/utils/useLoading";
+import Image from "../../common/image/Image";
 
 let loaded = false;
 
@@ -39,7 +40,7 @@ const ManageBootcamp = () => {
 		<main className="main-manage-bootcamp">
 			<section className="bootcamp-dtls">
 				<h1>{name}</h1>
-				{photoPath ? <img alt="Unavailable" src={photoPath} /> : ""}
+				{photoPath && <Image {...{ src: `${photoPath}` }} />}
 				<p>{description}</p>
 
 				<div>

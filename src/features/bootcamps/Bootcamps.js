@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { bootcampSelectors, handleRetrieval, updateBootcamps, handlePagination } from "./bootcampSlice";
 import useAlert from "../../common/utils/useAlert";
 import useLoading from "../../common/utils/useLoading";
+import Image from "../../common/image/Image";
 
 const Bootcamps = () => {
 	const bootcamps = useSelector(bootcampSelectors.selectEntities);
@@ -88,7 +89,7 @@ const Entry = ({ camp }) => {
 	return (
 		<div className="bootcamp">
 			<Link to={`/bootcamps/${camp.id}`}>
-				<img className="bootcamp-img" alt="Unavailable" src={`${process.env.REACT_APP_API}/uploads/${camp.photo}`} />
+				<Image {...{ src: `${process.env.REACT_APP_API}/uploads/${camp.photo}` }} />
 			</Link>
 
 			<div className="bootcamp-data">

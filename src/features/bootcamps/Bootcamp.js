@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBootcamp, updateMisc } from "../miscSlice";
 import useAlert from "../../common/utils/useAlert";
 import useLoading from "../../common/utils/useLoading";
+import Image from "../../common/image/Image";
 
 const Bootcamp = () => {
 	const { id } = useParams();
@@ -31,7 +32,7 @@ const Bootcamp = () => {
 		<main className="main-bootcamp">
 			<section className="bootcamp-dtls">
 				<h1>{name}</h1>
-				{photo && <img alt="" src={`${process.env.REACT_APP_API}/uploads/${photo}`} />}
+				{photo && <Image {...{ src: `${process.env.REACT_APP_API}/uploads/${photo}` }} />}
 				<p>{description}</p>
 
 				<div>

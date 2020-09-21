@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import Image from "../../common/image/Image";
 
 const BootcampDetails = ({ caller, display }) => {
 	const { bootcamp, photoPath } = useSelector(state => state.publisher);
@@ -99,7 +100,7 @@ const BootcampDetails = ({ caller, display }) => {
 					<input type="checkbox" id="gi-bill" checked={bill} onChange={e => setBill(e.target.checked)} /> Accepts GI Bill
 				</label>
 
-				{file && <img src={file} alt="" />}
+				{file && <Image {...{ src: `${file}` }} />}
 				<div className="mb">
 					<label htmlFor="">Add a Photo</label> <input type="file" onChange={e => setFile(e.target.files[0])} accept="image/*" />
 				</div>
