@@ -1,4 +1,4 @@
-> Deployed here: [Site](https://dev-camper-client-react-redux.herokuapp.com/) (API calls are super slow tho, free dynos from Heroku, so only to be expected)
+> Deployed [here](https://dev-camper-client-react-redux.herokuapp.com/) (API calls are super slow tho, free dynos from Heroku, so only to be expected)
 
 ## **Dev Camper Client**
 
