@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 let timer = null;
 
 const useAlert = (slice, caller) => {
-	const { alert } = useSelector(state => state[slice]);
+	const alert = useSelector(state => state[slice].alert);
 	const dispatch = useDispatch();
 
 	if (alert) {

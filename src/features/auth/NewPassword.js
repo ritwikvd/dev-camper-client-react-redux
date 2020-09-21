@@ -13,7 +13,7 @@ const NewPassword = () => {
 		state: { resetToken, email }
 	} = useLocation();
 	const dispatch = useDispatch();
-	const auth = useSelector(state => state.auth);
+	const session = useSelector(state => state.auth.session);
 	const alert = useAlert("auth", updateAuth);
 	const loading = useLoading("auth");
 
@@ -26,7 +26,7 @@ const NewPassword = () => {
 
 	if (loading) return <main className="main-new">{loading}</main>;
 
-	if (auth.session === "active") return <Redirect to={"/bootcamps"} />;
+	if (session === "active") return <Redirect to={"/bootcamps"} />;
 
 	return (
 		<main className="main-new">

@@ -3,13 +3,13 @@ import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const ProtectedRoute = ({ children, ...rest }) => {
-	const auth = useSelector(state => state.auth);
+	const session = useSelector(state => state.auth.session);
 
 	return (
 		<Route
 			{...rest}
 			render={({ location }) =>
-				auth.session === "active" ? (
+				session === "active" ? (
 					children
 				) : (
 					<Redirect

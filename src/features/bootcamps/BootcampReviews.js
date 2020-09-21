@@ -27,7 +27,7 @@ const BootcampReviews = () => {
 			<section className="bootcamp-reviews">
 				{data.length ? (
 					data.map(r => (
-						<div className="review">
+						<div key={r._id} className="review">
 							<h1>{r.title}</h1>
 							<div>Rating: {r.rating}</div>
 							<p>{r.text}</p>

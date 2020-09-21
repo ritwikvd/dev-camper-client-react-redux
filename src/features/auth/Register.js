@@ -12,7 +12,7 @@ const Register = () => {
 	const [password, setPassword] = useState("");
 	const [confirm, setConfirm] = useState("");
 
-	const auth = useSelector(state => state.auth);
+	const session = useSelector(state => state.auth.session);
 	const dispatch = useDispatch();
 	const alert = useAlert("auth", updateAuth);
 	const loading = useLoading("auth");
@@ -28,7 +28,7 @@ const Register = () => {
 
 	if (loading) return <main className="main-reg">{loading}</main>;
 
-	if (auth.session === "active") return <Redirect to={"/bootcamps"} />;
+	if (session === "active") return <Redirect to={"/bootcamps"} />;
 
 	return (
 		<main className="main-reg">

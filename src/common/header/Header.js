@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { handleLogout } from "../../features/auth/authSlice";
 import { useHistory, Link } from "react-router-dom";
 
 const Header = ({ menuOpen, setMenuOpen }) => {
-	const auth = useSelector(state => state.auth);
+	const session = useSelector(state => state.auth.session);
 	const dispatch = useDispatch();
 	const history = useHistory();
 
 	const [headerFixed, setHeaderFixed] = useState(false);
 
-	let interval = null;
+	const interval = useRef();
 
 	const logout = () => {
-		clearInterval(interval);
-
-		if (auth.session === "inactive") return;
-
+		clearInterval(interval.current);
 		dispatch(handleLogout({ email: "", session: "inactive", name: "" }));
 		history.push("/");
 	};
@@ -29,11 +26,13 @@ const Header = ({ menuOpen, setMenuOpen }) => {
 	}, []);
 
 	useEffect(() => {
-		if (auth.session === "active") interval = setInterval(() => localStorage.getItem("TOKEN") || logout(), 2000);
-	}, [auth.session]);
+		if (session === "active") {
+			interval.current = setInterval(() => localStorage.getItem("TOKEN") || logout(), 2000);
+		}
+	}, [session]);
 
 	const getHeaderElements = () => {
-		if (auth.session !== "active")
+		if (session !== "active")
 			return (
 				<ul className="nav-links">
 					<li>

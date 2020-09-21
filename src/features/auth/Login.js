@@ -9,7 +9,7 @@ const Login = () => {
 	const [email, setEmail] = useState("admin@gmail.com");
 	const [password, setPassword] = useState("123456");
 
-	const auth = useSelector(state => state.auth);
+	const session = useSelector(state => state.auth.session);
 	const dispatch = useDispatch();
 	const alert = useAlert("auth", updateAuth);
 	const loading = useLoading("auth");
@@ -22,7 +22,7 @@ const Login = () => {
 
 	if (loading) return <main className="main-login">{loading}</main>;
 
-	if (auth.session === "active") {
+	if (session === "active") {
 		const pathname = location?.state?.from?.pathname;
 
 		return <Redirect to={pathname || "/bootcamps"} />;

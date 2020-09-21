@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route as R, Switch } from "react-router-dom";
 import useErrorBoundary from "use-error-boundary";
 import "../styles/main.scss";
@@ -29,6 +29,10 @@ const App = () => {
 	const { ErrorBoundary, didCatch, error } = useErrorBoundary();
 
 	didCatch && console.error(error);
+
+	useEffect(() => {
+		fetch(`${process.env.REACT_APP_API}`);
+	}, []);
 
 	if (didCatch) return <p>Oops, something went wrong.</p>;
 

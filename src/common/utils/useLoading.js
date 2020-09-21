@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const useLoading = slice => {
-	const { loading } = useSelector(state => state[slice]);
+	const loading = useSelector(state => state[slice].loading);
 
 	if (loading === "idle") return null;
 
