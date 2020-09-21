@@ -1,0 +1,37 @@
+//1 - CONFIG
+@import "1-config/variables";
+@import "1-config/functions";
+@import "1-config/mixins";
+@import "1-config/placeholders";
+
+//2 - DEFAULTS
+@import "2-defaults/defaults";
+@import "2-defaults/utils";
+
+//3 - COMPONENTS
+@import "3-components/header";
+
+//3.1 - AUTH
+@import "3-components/3.1-auth/login";
+@import "3-components/3.1-auth/register";
+@import "3-components/3.1-auth/resetPass";
+@import "3-components/3.1-auth/newPass";
+
+//3.2 - BOOTCAMPS
+@import "3-components/3.2-bootcamps/bootcamps";
+@import "3-components/3.2-bootcamps/bootcamp";
+@import "3-components/3.2-bootcamps/bootcamp-reviews";
+@import "3-components/3.2-bootcamps/create-review";
+
+//3.3 - PUBLISHER
+@import "3-components/3.3-publisher/manage-bootcamp";
+@import "3-components/3.3-publisher/bootcamp-dtls";
+
+//3.3.1 - COURSES
+@import "3-components/3.3-publisher/3.3.1-courses/manage-courses";
+@import "3-components/3.3-publisher/3.3.1-courses/course-dtls";
+
+//3.4 - USER
+@import "3-components/3.4-user/account";
+@import "3-components/3.4-user/update-pass";
+@import "3-components/3.4-user/user-reviews";

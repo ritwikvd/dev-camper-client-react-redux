@@ -1,0 +1,11 @@
+@function calc-color($color) {
+	@if (lightness($color) > 40%) {
+		@return #000;
+	} @else {
+		@return #fff;
+	}
+}
+
+@function lighten-primary($amount) {
+	@return lighten($color: $primary-color, $amount: $amount);
+}

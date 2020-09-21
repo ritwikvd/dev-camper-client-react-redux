@@ -1,0 +1,47 @@
+.main-bootcamp-dtls {
+	display: grid;
+	grid-gap: 3rem;
+}
+
+.form-bootcamp-dtls {
+	align-self: stretch;
+	height: 90vh;
+	@include flex($justify: space-evenly);
+}
+
+.bootcamp-dtls-location {
+	display: grid;
+	background-color: lighten-primary(10%);
+	border-radius: 5px;
+	padding: 1rem;
+	grid-gap: 1rem;
+	width: 30vw;
+
+	h1 {
+		text-align: center;
+	}
+}
+
+.bootcamp-dtls-other {
+	align-self: start;
+	height: 90%;
+	display: grid;
+	grid-gap: 1rem;
+	padding: 1rem;
+	background-color: lighten-primary(10%);
+	border-radius: 5px;
+	overflow-y: auto;
+	@include scrollbar;
+
+	h1 {
+		text-align: center;
+	}
+
+	.bootcamp-dtls-text {
+		height: 200px;
+	}
+
+	.bootcamp-dtls-select {
+		height: 150px;
+	}
+}

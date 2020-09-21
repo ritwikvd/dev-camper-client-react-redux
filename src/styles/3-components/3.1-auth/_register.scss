@@ -1,0 +1,7 @@
+.main-reg {
+	@include flex;
+}
+
+.form-reg {
+	@include generic-form(70vh, true);
+}

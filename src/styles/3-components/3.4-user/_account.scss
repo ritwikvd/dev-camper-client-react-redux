@@ -1,0 +1,7 @@
+.main-account-dtls {
+	@include flex;
+}
+
+.form-account-dtls {
+	@include generic-form(50vh, false);
+}

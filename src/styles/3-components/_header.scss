@@ -1,0 +1,77 @@
+nav {
+	background-color: lighten-primary(10%);
+	padding: 10px 20px;
+	@include flex($justify: space-between);
+
+	.#{&}-links {
+		display: grid;
+		grid-auto-flow: column;
+		grid-gap: 1rem;
+	}
+}
+
+.nav-shadow {
+	box-shadow: 0 0 10px 1px lighten-primary(40%);
+}
+
+.nav-account {
+	position: relative;
+
+	&::before {
+		@extend %account-pseudo;
+		top: 12px;
+	}
+
+	&::after {
+		@extend %account-pseudo;
+		top: 16px;
+	}
+
+	&.open {
+		&::before {
+			transform: rotate(45deg);
+		}
+
+		&::after {
+			transform: rotate(-45deg) translate(2.5px, -3px);
+		}
+	}
+}
+
+.nav-links-item {
+	position: relative;
+}
+
+.nav-account-links {
+	position: absolute;
+	left: -2.7rem;
+	top: 2rem;
+	width: 9rem;
+	background-color: lighten-primary(15%);
+	border-radius: 5px;
+	@include flex(column, $align: center, $justify: space-around);
+	transform-origin: top;
+	animation: {
+		name: menu;
+		timing-function: ease-in-out;
+		duration: 0.1s;
+	}
+
+	@keyframes menu {
+		from {
+			transform: scale(0);
+		}
+
+		to {
+			transform: scale(1);
+		}
+	}
+
+	> * {
+		padding: 0.5rem;
+	}
+
+	a {
+		font-size: smaller;
+	}
+}

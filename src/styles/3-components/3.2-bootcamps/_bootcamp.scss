@@ -1,0 +1,22 @@
+.main-bootcamp {
+	@include flex($justify: space-evenly);
+}
+
+.bootcamp-dtls {
+	@extend %generic-container;
+}
+
+.bootcamp-courses {
+	@extend %generic-item;
+}
+
+.bootcamp-rating {
+	> * {
+		margin: 1rem;
+	}
+}
+
+.bootcamp-avg-rating {
+	font-size: 1.5rem;
+	color: $secondary-color;
+}

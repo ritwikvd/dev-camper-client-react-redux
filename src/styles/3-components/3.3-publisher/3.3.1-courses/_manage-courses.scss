@@ -1,0 +1,44 @@
+.main-manage-courses {
+	@include flex($justify: space-evenly);
+}
+
+.courses-container {
+	align-self: start;
+	padding: 1rem;
+	width: 70vw;
+	// height: 80vh;
+	overflow-y: auto;
+	@include scrollbar;
+	display: grid;
+	grid-gap: 1rem;
+}
+
+.courses-alert {
+	height: 75px;
+	width: 100%;
+}
+
+.bootcamp-course {
+	background-color: lighten($color: $primary-color, $amount: 10%);
+	border-radius: 5px;
+	padding: 0.5rem;
+	border-bottom: 2px solid $secondary-color;
+	height: 100px;
+	@include flex($justify: space-between);
+
+	&-links {
+		display: grid;
+		grid-auto-flow: column;
+		grid-gap: 1rem;
+		align-items: center;
+	}
+
+	&-title {
+		color: $secondary-color;
+	}
+}
+
+.courses-msg {
+	width: 70vw;
+	text-align: center;
+}

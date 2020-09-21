@@ -1,0 +1,73 @@
+.main-bootcamps {
+	@include flex($justify: space-evenly);
+}
+
+.form-bootcamps {
+	height: 50vh;
+	width: 30vw;
+	background-color: lighten-primary(10%);
+	border-radius: 5px;
+	@include flex(row, wrap, $justify: center);
+
+	> * {
+		flex-basis: 75%;
+	}
+}
+
+.bootcamps-container {
+	height: 90vh;
+	padding: 1rem;
+}
+
+.bootcamps {
+	height: 90%;
+	width: 60vw;
+
+	@include flex(row, wrap);
+	overflow-y: auto;
+	@include scrollbar;
+
+	> * {
+		flex-basis: 100%;
+	}
+
+	&-pag {
+		@include flex;
+
+		> * {
+			margin: 0.5rem;
+			@include default-transition(0.2s);
+			cursor: pointer;
+		}
+	}
+}
+
+.bootcamp {
+	@include flex(row, $justify: space-between);
+	margin: 1rem;
+	padding: 1rem;
+	background-color: lighten-primary(10%);
+	border-radius: 5px;
+
+	&-data {
+		width: 70%;
+		align-self: start;
+		display: grid;
+		grid-gap: 0.5rem;
+
+		> * {
+			font-size: smaller;
+
+			&:nth-child(1) {
+				font-size: large;
+			}
+		}
+	}
+}
+
+.pag-active {
+	font-size: larger;
+	background-color: lighten-primary(10%);
+	border-radius: 50%;
+	padding: 5px 15px;
+}

@@ -1,0 +1,60 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	font-size: 20px;
+	color: calc-color($primary-color);
+	-webkit-user-select: none;
+}
+
+body {
+	background-color: $primary-color;
+	height: 100vh;
+	overflow: hidden;
+}
+
+input,
+textarea,
+select {
+	@extend %generic-input;
+}
+
+button {
+	background-color: transparent;
+	border: none;
+	outline: transparent;
+	cursor: pointer;
+	@include hover;
+}
+
+a {
+	text-decoration: none;
+	@include hover;
+
+	&:visited {
+		@include hover;
+		color: calc-color($primary-color);
+	}
+}
+
+li {
+	list-style-type: none;
+}
+
+option {
+	color: #000;
+}
+
+optgroup {
+	color: #000;
+}
+
+main {
+	height: 90vh;
+}
+
+img {
+	height: 150px;
+	// width: 200px;
+}

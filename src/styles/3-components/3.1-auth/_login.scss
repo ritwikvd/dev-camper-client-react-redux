@@ -1,0 +1,7 @@
+.main-login {
+	@include flex;
+}
+
+.form-login {
+	@include generic-form(50vh, false);
+}

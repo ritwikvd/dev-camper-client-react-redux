@@ -1,0 +1,19 @@
+.main-create-review {
+	@include flex;
+}
+
+.form-create-review {
+	height: 80vh;
+	width: 40vw;
+	background-color: lighten-primary(10%);
+	border-radius: 5px;
+	@include flex(row, wrap, $justify: center);
+
+	> * {
+		flex-basis: 75%;
+	}
+
+	h1 {
+		text-align: center;
+	}
+}

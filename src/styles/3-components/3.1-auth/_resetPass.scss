@@ -1,0 +1,15 @@
+.main-reset {
+	@include flex;
+}
+
+.form-reset {
+	height: 30vh;
+	width: 40vw;
+	background-color: lighten-primary(10%);
+	border-radius: 5px;
+	@include flex(row, wrap, $justify: space-evenly);
+
+	> * {
+		flex-basis: 75%;
+	}
+}

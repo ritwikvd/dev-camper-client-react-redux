@@ -1,0 +1,97 @@
+@mixin hover {
+	&:hover {
+		@include default-transition;
+		color: $secondary-color;
+	}
+}
+
+@mixin default-transition($time: 0.5s) {
+	transition: all $time ease-in-out;
+}
+
+@mixin flex($direction: row, $wrap: nowrap, $align: center, $justify: center) {
+	display: flex;
+	flex-flow: $direction $wrap;
+	align-items: $align;
+	justify-content: $justify;
+}
+
+@mixin ellipsis {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+@mixin alert-animation {
+	color: #f05b5b;
+	animation: {
+		name: alert;
+		duration: 5s;
+		timing-function: ease-in-out;
+		fill-mode: forwards;
+		iteration-count: infinite;
+	}
+
+	@keyframes alert {
+		0% {
+			transform: translateX(-5rem);
+			opacity: 0;
+		}
+
+		10% {
+			transform: translateX(0);
+			opacity: 1;
+		}
+
+		90% {
+			transform: translateX(0);
+			opacity: 1;
+		}
+
+		100% {
+			transform: translateX(5rem);
+			opacity: 0;
+		}
+	}
+}
+
+@mixin scrollbar {
+	&::-webkit-scrollbar {
+		width: 5px;
+		background: transparent;
+
+		&-thumb {
+			background-color: $secondary-color;
+			border-radius: 10px;
+		}
+	}
+}
+
+@mixin generic-form($height, $simple-flex) {
+	height: $height;
+	width: 40vw;
+	background-color: lighten-primary(10%);
+	border-radius: 5px;
+	@include flex(row, wrap, $justify: center);
+
+	@if ($simple-flex) {
+		> * {
+			flex-basis: 75%;
+		}
+	} @else {
+		> * {
+			@for $i from 1 through 5 {
+				$basis: null;
+				@if $i >= 4 {
+					$basis: 50%;
+				} @else {
+					$basis: 75%;
+				}
+				&:nth-child(#{$i}) {
+					flex-basis: $basis;
+					// flex-basis: if ($i>=4, 50%, 100%);
+				}
+			}
+		}
+	}
+}

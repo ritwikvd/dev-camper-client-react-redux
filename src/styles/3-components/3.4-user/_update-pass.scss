@@ -1,0 +1,7 @@
+.main-update-pass {
+	@include flex;
+}
+
+.form-update-pass {
+	@include generic-form(50vh, true);
+}

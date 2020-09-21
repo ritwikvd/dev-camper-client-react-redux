@@ -1,0 +1,64 @@
+.cursor {
+	&-def {
+		cursor: default;
+	}
+
+	&-pointer {
+		cursor: pointer;
+		@include hover;
+	}
+}
+
+.alert-container {
+	position: relative;
+
+	div {
+		@include alert-animation;
+		position: absolute;
+		top: 1.5rem;
+		width: 100%;
+		text-align: center;
+	}
+}
+
+.pos {
+	&-fixed {
+		position: fixed;
+		width: 100%;
+	}
+}
+
+.loading {
+	font-weight: 700;
+	font-style: italic;
+	align-self: center;
+	justify-self: center;
+}
+
+.none {
+	display: none !important;
+}
+
+.hover {
+	@include hover;
+}
+
+.red {
+	color: #dc3545;
+}
+
+.green {
+	color: #28a745;
+}
+
+.reduce-opa {
+	opacity: 50%;
+}
+
+.align-center {
+	text-align: center;
+}
+
+.mb {
+	margin-bottom: 1rem;
+}
