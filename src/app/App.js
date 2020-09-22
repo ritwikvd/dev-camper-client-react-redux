@@ -30,10 +30,6 @@ const App = () => {
 
 	didCatch && console.error(error);
 
-	useEffect(() => {
-		fetch(`${process.env.REACT_APP_API}`);
-	}, []);
-
 	if (didCatch) return <p>Oops, something went wrong.</p>;
 
 	return (
