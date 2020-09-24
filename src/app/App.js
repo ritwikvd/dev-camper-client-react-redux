@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route as R, Switch } from "react-router-dom";
 import useErrorBoundary from "use-error-boundary";
 import "../styles/main.scss";
