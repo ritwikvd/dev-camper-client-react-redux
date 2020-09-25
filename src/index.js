@@ -1,6 +1,6 @@
 import React, { Suspense, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-// import App from "./app/App";
+import "./styles/main.scss";
 import store from "./app/store";
 import { Provider } from "react-redux";
 
@@ -11,9 +11,7 @@ const Index = () => {
 	const [showApp, setShowApp] = useState(false);
 
 	useEffect(() => {
-		setTimeout(() => {
-			setShowApp(true);
-		}, 1000);
+		setTimeout(() => setShowApp(true), 1000);
 	}, []);
 
 	return (

@@ -1,27 +1,40 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route as R, Switch } from "react-router-dom";
+import React, { lazy, memo, Suspense, useState } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import useErrorBoundary from "use-error-boundary";
-import "../styles/main.scss";
 import Header from "../common/header/Header";
-import Login from "../features/auth/Login";
-import Register from "../features/auth/Register";
-import ResetPassword from "../features/auth/ResetPassword";
-import NewPassword from "../features/auth/NewPassword";
-import CreateBootcamp from "../features/publisher/CreateBootcamp";
-import UserReviews from "../features/user/UserReviews";
-import EditUserReview from "../features/user/EditUserReview";
-import Account from "../features/user/Account";
-import UpdatePassword from "../features/user/UpdatePassword";
-import Bootcamps from "../features/bootcamps/Bootcamps";
-import Bootcamp from "../features/bootcamps/Bootcamp";
-import BootcampReviews from "../features/bootcamps/BootcampReviews";
-import CreateBootcampReview from "../features/bootcamps/CreateBootcampReview";
-import ManageBootcamp from "../features/publisher/ManageBootcamp";
-import EditBootcamp from "../features/publisher/EditBootcamp";
-import ManageCourses from "../features/publisher/courses/ManageCourses";
-import CreateCourse from "../features/publisher/courses/CreateCourse";
-import EditCourse from "../features/publisher/courses/EditCourse";
-import PR from "../common/protectedRoute/ProtectedRoute";
+import ProtectedRoute from "../common/protectedRoute/ProtectedRoute";
+
+const login = import("../features/auth/Login");
+const register = import("../features/auth/Register");
+const resetP = import("../features/auth/ResetPassword");
+const newP = import("../features/auth/NewPassword");
+const userR = import("../features/user/UserReviews");
+const editR = import("../features/user/EditUserReview");
+const account = import("../features/user/Account");
+const updateP = import("../features/user/UpdatePassword");
+const manageB = import("../features/publisher/ManageBootcamp");
+const createB = import("../features/publisher/CreateBootcamp");
+const editB = import("../features/publisher/EditBootcamp");
+const manageC = import("../features/publisher/courses/ManageCourses");
+const createC = import("../features/publisher/courses/CreateCourse");
+const editC = import("../features/publisher/courses/EditCourse");
+const bootcamps = import("../features/bootcamps/Bootcamps");
+const bootcamp = import("../features/bootcamps/Bootcamp");
+const bootcampR = import("../features/bootcamps/BootcampReviews");
+const createR = import("../features/bootcamps/CreateBootcampReview");
+
+const WrappedComponent = memo(({ c, p, r, e }) => {
+	const C = lazy(() => c);
+	const R = r ? Route : ProtectedRoute;
+
+	return (
+		<R exact={e || false} path={p}>
+			<Suspense fallback={null}>
+				<C />
+			</Suspense>
+		</R>
+	);
+});
 
 const App = () => {
 	const [menuOpen, setMenuOpen] = useState(false);
@@ -30,7 +43,12 @@ const App = () => {
 
 	didCatch && console.error(error);
 
-	if (didCatch) return <p>Oops, something went wrong.</p>;
+	if (didCatch)
+		return (
+			<main className="main-login">
+				<p className="loading align-center">Oops, something went wrong</p>
+			</main>
+		);
 
 	return (
 		<div
@@ -42,69 +60,31 @@ const App = () => {
 			<ErrorBoundary>
 				<Router>
 					<Header {...{ menuOpen, setMenuOpen }} />
-					<Switch>
-						{/* Auth Routes */}
-						<R exact path="/">
-							<Login />
-						</R>
-						<R path="/register">
-							<Register />
-						</R>
-						<R path="/reset-password">
-							<ResetPassword />
-						</R>
-						<R path="/new-password">
-							<NewPassword />
-						</R>
+					{/* Auth Routes */}
+					<WrappedComponent {...{ c: login, p: "/", r: true, e: true }} />
+					<WrappedComponent {...{ c: register, p: "/register", r: true }} />
+					<WrappedComponent {...{ c: resetP, p: "/reset-password", r: true }} />
+					<WrappedComponent {...{ c: newP, p: "/new-password", r: true }} />
 
-						{/* User Routes */}
-						<PR path="/reviews/:id">
-							<EditUserReview />
-						</PR>
-						<PR path="/reviews">
-							<UserReviews />
-						</PR>
-						<PR path="/account/update-password">
-							<UpdatePassword />
-						</PR>
-						<PR path="/account">
-							<Account />
-						</PR>
+					{/* User Routes */}
+					<WrappedComponent {...{ c: userR, p: "/reviews", e: true }} />
+					<WrappedComponent {...{ c: editR, p: "/reviews/:id" }} />
+					<WrappedComponent {...{ c: account, p: "/account", e: true }} />
+					<WrappedComponent {...{ c: updateP, p: "/account/update-password" }} />
 
-						{/* Publisher Routes */}
-						<PR path="/publisher/manage">
-							<ManageBootcamp />
-						</PR>
-						<PR path="/publisher/create-bootcamp">
-							<CreateBootcamp />
-						</PR>
-						<PR path="/publisher/edit-bootcamp">
-							<EditBootcamp />
-						</PR>
-						<PR path="/publisher/courses/manage">
-							<ManageCourses />
-						</PR>
-						<PR path="/publisher/courses/create">
-							<CreateCourse />
-						</PR>
-						<PR path="/publisher/courses/:courseID/edit">
-							<EditCourse />
-						</PR>
+					{/* Publisher Routes */}
+					<WrappedComponent {...{ c: manageB, p: "/publisher/manage" }} />
+					<WrappedComponent {...{ c: createB, p: "/publisher/create-bootcamp" }} />
+					<WrappedComponent {...{ c: editB, p: "/publisher/edit-bootcamp" }} />
+					<WrappedComponent {...{ c: manageC, p: "/publisher/courses/manage" }} />
+					<WrappedComponent {...{ c: createC, p: "/publisher/courses/create" }} />
+					<WrappedComponent {...{ c: editC, p: "/publisher/courses/:courseID/edit" }} />
 
-						{/* Bootcamp Routes */}
-						<PR path="/bootcamps/:id/reviews">
-							<BootcampReviews />
-						</PR>
-						<PR path="/bootcamps/:id/create-review">
-							<CreateBootcampReview />
-						</PR>
-						<PR path="/bootcamps/:id">
-							<Bootcamp />
-						</PR>
-						<PR path="/bootcamps">
-							<Bootcamps />
-						</PR>
-					</Switch>
+					{/* Bootcamp Routes */}
+					<WrappedComponent {...{ c: bootcamps, p: "/bootcamps", e: true }} />
+					<WrappedComponent {...{ c: bootcamp, p: "/bootcamps/:id", e: true }} />
+					<WrappedComponent {...{ c: bootcampR, p: "/bootcamps/:id/reviews" }} />
+					<WrappedComponent {...{ c: createR, p: "/bootcamps/:id/create-review" }} />
 				</Router>
 			</ErrorBoundary>
 		</div>
