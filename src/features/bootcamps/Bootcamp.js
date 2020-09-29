@@ -18,9 +18,7 @@ const Bootcamp = () => {
 		//eslint-disable-next-line
 	}, []);
 
-	const { name, description, averageRating, housing, jobAssistance, jobGuarantee, acceptGi, courses, photo } = data;
-
-	const averageCost = courses?.length ? (courses.reduce((sum, c) => (sum += c.tuition), 0) / courses.length).toFixed(2) : 0;
+	const { name, description, averageRating, housing, jobAssistance, jobGuarantee, acceptGi, courses, photo, averageCost } = data;
 
 	const getIcon = a => (a ? <i className="fas fa-check green"></i> : <i className="fas fa-times red"></i>);
 
@@ -42,7 +40,7 @@ const Bootcamp = () => {
 					<div>GI Bill Accepted: {getIcon(acceptGi)}</div>
 				</div>
 
-				<div>{`Average course cost: $${averageCost}`}</div>
+				<div>{`Average Course Cost: $${averageCost || 0}`}</div>
 
 				{courses &&
 					courses.map(c => (

@@ -30,7 +30,7 @@ const ManageBootcamp = () => {
 
 	if (!bootcamp && loaded) return <Redirect to="/publisher/create-bootcamp" />;
 
-	const { name, description, housing, jobAssistance, jobGuarantee, acceptGi, courses = 0 } = bootcamp || {};
+	const { name, description, housing, jobAssistance, jobGuarantee, acceptGi, courses, averageCost } = bootcamp || {};
 
 	const getIcon = a => (a ? <i className="fas fa-check green"></i> : <i className="fas fa-times red"></i>);
 
@@ -48,7 +48,7 @@ const ManageBootcamp = () => {
 					<div>GI Bill Accepted: {getIcon(acceptGi)}</div>
 				</div>
 
-				<div>{`Average Course Cost: $${averageCost}`}</div>
+				<div>{`Average Course Cost: $${averageCost || 0}`}</div>
 
 				{courses &&
 					courses.map(c => (
