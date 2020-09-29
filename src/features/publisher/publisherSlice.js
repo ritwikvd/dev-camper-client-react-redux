@@ -25,28 +25,31 @@ const publisherSlice = createSlice({
 			.addCase("publisher/delete_course/pending", state => {
 				state.loading = "DELETING";
 			})
-			.addCase("publisher/create_course/fulfilled", (state, { payload: { loading, alert, data } }) => {
+			.addCase("publisher/create_course/fulfilled", (state, { payload: { loading, alert, data, avgCost } }) => {
 				const { bootcamp } = state;
 				const { courses } = bootcamp;
 
+				bootcamp.averageCost = avgCost;
 				state.loading = loading;
 				state.alert = alert;
 
 				if (!courses) bootcamp.courses = [data];
 				else courses.push(data);
 			})
-			.addCase("publisher/edit_course/fulfilled", (state, { payload: { loading, alert, data } }) => {
+			.addCase("publisher/edit_course/fulfilled", (state, { payload: { loading, alert, data, avgCost } }) => {
 				const { courses } = state.bootcamp;
 
+				state.bootcamp.averageCost = avgCost;
 				state.loading = loading;
 				state.alert = alert;
 
 				const index = courses.findIndex(a => a._id === data._id);
 				courses[index] = data;
 			})
-			.addCase("publisher/delete_course/fulfilled", (state, { payload: { loading, alert, id } }) => {
+			.addCase("publisher/delete_course/fulfilled", (state, { payload: { loading, alert, id, avgCost } }) => {
 				let { courses } = state.bootcamp;
 
+				state.bootcamp.averageCost = avgCost;
 				state.loading = loading;
 				state.alert = alert;
 
@@ -174,7 +177,7 @@ export const editBootcamp = createAsyncThunk("publisher/edit_bootcamp", async (b
 });
 
 export const createCourse = createAsyncThunk("publisher/create_course", async (body, { dispatch, getState }) => {
-	const { success, data, error, message } = await performFetch(`${process.env.REACT_APP_API}/api/v1/courses`, {
+	const { success, data, error, message, avgCost } = await performFetch(`${process.env.REACT_APP_API}/api/v1/courses`, {
 		method: "POST",
 		body: JSON.stringify({ ...body, ...{ id: getState().publisher.bootcamp.id } })
 	});
@@ -183,11 +186,11 @@ export const createCourse = createAsyncThunk("publisher/create_course", async (b
 
 	if (!success) return { loading: "idle", alert: error || message };
 
-	return { loading: "idle", alert: "", data };
+	return { loading: "idle", alert: "", data, avgCost };
 });
 
 export const editCourse = createAsyncThunk("publisher/edit_course", async (body, { dispatch }) => {
-	const { success, data, error, message } = await performFetch(`${process.env.REACT_APP_API}/api/v1/courses/${body.courseID}`, {
+	const { success, data, error, message, avgCost } = await performFetch(`${process.env.REACT_APP_API}/api/v1/courses/${body.courseID}`, {
 		method: "PUT",
 		body: JSON.stringify(body)
 	});
@@ -196,17 +199,17 @@ export const editCourse = createAsyncThunk("publisher/edit_course", async (body,
 
 	if (!success) return { loading: "idle", alert: error || message };
 
-	return { loading: "idle", alert: "", data };
+	return { loading: "idle", alert: "", data, avgCost };
 });
 
 export const deleteCourse = createAsyncThunk("publisher/delete_course", async ({ id }, { dispatch }) => {
-	const { success, error, message } = await performFetch(`${process.env.REACT_APP_API}/api/v1/courses/${id}`, {
+	const { success, error, message, avgCost } = await performFetch(`${process.env.REACT_APP_API}/api/v1/courses/${id}`, {
 		method: "DELETE"
 	});
 
 	await handleLoadingUpdates([success ? "DONE" : "FAILED"], dispatch, updatePublisher);
 
-	return { loading: "idle", alert: success ? "" : error || message, id };
+	return { loading: "idle", alert: success ? "" : error || message, id, avgCost };
 });
 
 //selectors here
