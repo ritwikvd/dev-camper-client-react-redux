@@ -108,7 +108,7 @@ export const uploadImage = createAsyncThunk("publisher/upload_image", async ({ f
 	let formData = new FormData(form);
 	formData.append("file", file);
 
-	const response = await fetch(`/api/v1/bootcamps/${data._id}/photo`, {
+	const response = await fetch(`${process.env.REACT_APP_API}/api/v1/bootcamps/${data._id}/photo`, {
 		method: "PUT",
 		body: formData,
 		headers: {
