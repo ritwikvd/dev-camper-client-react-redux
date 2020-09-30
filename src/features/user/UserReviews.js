@@ -26,7 +26,7 @@ const UserReviews = () => {
 					data.map(r => (
 						<div key={r._id} className="user-review">
 							<div>
-								<div className="user-review-title">{r.bootcamp.name}</div>
+								<div className="user-review-title">{r.bootcamp?.name}</div>
 								<div>{r.title}</div>
 								<div>Rating: {r.rating}</div>
 							</div>
