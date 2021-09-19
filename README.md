@@ -1,4 +1,4 @@
-> Deployed [here](https://dev-camper-rrr.herokuapp.com/) (API calls are super slow tho, free dynos from Heroku, so only to be expected)
+> Deployed [here](https://dev-camper-rrr.herokuapp.com/) (Initial load up is super slow tho since I'm using free dynos from Heroku)
 
 ## **Dev Camper Client**
 
